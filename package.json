@@ -28,9 +28,11 @@
     "parse-full-name": "^1.2.3"
   },
   "dependencies": {
+    "fs": "0.0.1-security",
+    "graphql-client": "^2.0.1",
     "loglevel": "^1.4.1",
     "request": "^2.81.0",
-    "graphql-client": "^2.0.1"
+    "xlsx": "^0.13.0"
   },
   "scripts": {
     "test": "mocha --timeout 300000 --reporter spec ",

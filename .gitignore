@@ -9,3 +9,7 @@ node_modules/
 ~\$extensions\.xlsx
 
 package-lock\.json
+
+test/db\.json
+
+test/duplicate_data\.js

@@ -20,7 +20,7 @@ const Fuse = require('fuse-js-latest'); // Needed to search in the json file
 const workbook = XLSX.readFile("../extensions.xlsx"); // Location of our file
 const tableIDs = require('./tableIDs'); // JSON object to get the table IDs by their name
 
-const tableToUpdate = "ilr6Z0J6"; //  ID of the table where you want to add records
+const tableToUpdate = "8zgwlq_2"; //  ID of the table where you want to add records
 
 /**
  * Loads the existing data from the database in an array
@@ -125,7 +125,7 @@ searchRFQs().then(existing => { // Once we have our list of existing
                 "field_value": await getRecordIDByTitle(tableIDs["LCAT"], e["Cat."])
             });
             params.fields_attributes.push({
-                "field_id": "level",
+                "field_id": "level_1",
                 "field_value": await getRecordIDByTitle(tableIDs["Levels"], e["Level"])
             });
             params.fields_attributes.push({
@@ -137,21 +137,26 @@ searchRFQs().then(existing => { // Once we have our list of existing
                 "field_value": await getRecordIDByTitle(tableIDs["Project Managers"], e["PM"])
             });
             params.fields_attributes.push({
-                "field_id": "work_location",
+                "field_id": "location_2",
                 "field_value": await getRecordIDByTitle(tableIDs["Work Locations"], e["Location"])
             });
+
+            if(e["RFQ / Project number"] === "783-1")
+                console.log(params);
+
 
             // This allows us to have information about how the function went
             let ret = await pipefy.createTableRecord(params);
 
             // Gives us informations about the error if there is one (missing field, wrong id, etc...)
             if (ret.errors !== undefined) {
-                ret.errors.forEach(e => {
-                    console.error(e.message);
+                ret.errors.forEach(el => {
+                    console.error(el.message);
+                    console.error(e["RFQ / Project number"]);
                 });
             }
             else
-                console.log("New records inserted");
+                console.log(ret);
 
         } catch (err) {
             console.error("Could not execute query: " + err);
